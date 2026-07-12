@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Driving Test Simulator — DVSA-standard mock tests for driving instructors</title>
+<meta name="description" content="PassTrack by Driving Test Simulator: run DVSA-standard mock driving tests with real DL25 marking, sat-nav test routes, fault maps and professional reports. Built for UK driving instructors.">
+<style>
+  :root{--navy:#0b3d66;--ink:#0b0c0c;--grey:#505a5f;--bg:#f3f2f1;--green:#00703c;--line:#d9d9d7;
+        --amber:#f47738;--red:#d4351c;}
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);line-height:1.6;background:#fff;}
+  .wrap{max-width:1000px;margin:0 auto;padding:0 20px;}
+  header{background:var(--navy);color:#fff;}
+  .topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 0;}
+  .logo{font-weight:800;font-size:18px;letter-spacing:.2px;}
+  .logo span{color:#9fc3e0;font-weight:500;}
+  .hero{padding:56px 0 64px;}
+  .hero h1{font-size:clamp(28px,5vw,44px);line-height:1.15;max-width:640px;}
+  .hero p.sub{margin-top:16px;font-size:18px;color:#cfe0ef;max-width:560px;}
+  .cta-row{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;}
+  .btn{display:inline-block;padding:14px 26px;border-radius:8px;font-weight:700;text-decoration:none;font-size:16px;}
+  .btn-green{background:var(--green);color:#fff;}
+  .btn-ghost{border:2px solid #9fc3e0;color:#fff;}
+  .soon{font-size:13px;color:#9fc3e0;margin-top:10px;}
+  .strip{background:var(--bg);border-bottom:1px solid var(--line);}
+  .strip .wrap{display:flex;gap:28px;flex-wrap:wrap;padding:18px 20px;font-size:14px;color:var(--grey);}
+  .strip b{color:var(--ink);}
+  section{padding:56px 0;}
+  h2{font-size:28px;margin-bottom:10px;}
+  .lead{color:var(--grey);max-width:640px;margin-bottom:36px;}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
+  .card{border:1px solid var(--line);border-radius:12px;padding:22px;background:#fff;}
+  .card .ico{font-size:26px;}
+  .card h3{font-size:17px;margin:10px 0 6px;}
+  .card p{font-size:14.5px;color:var(--grey);}
+  .band{background:var(--navy);color:#fff;}
+  .band h2{color:#fff;}
+  .band .lead{color:#cfe0ef;}
+  .band ul{list-style:none;max-width:640px;}
+  .band li{padding:10px 0 10px 34px;position:relative;font-size:15.5px;}
+  .band li::before{content:"✓";position:absolute;left:0;top:8px;width:24px;height:24px;border-radius:50%;
+    background:var(--green);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;}
+  .disclaim{background:var(--bg);border-left:5px solid var(--navy);padding:16px 20px;border-radius:6px;font-size:14px;color:var(--grey);}
+  footer{background:var(--ink);color:#b1b4b6;padding:34px 0;font-size:13.5px;}
+  footer a{color:#fff;}
+  footer .cols{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <div class="topbar">
+      <div class="logo">🚗 Driving Test Simulator <span>· PassTrack</span></div>
+      <a class="btn btn-ghost" style="padding:9px 18px;font-size:14px;" href="mailto:info@rds-hub-ltd.co.uk">Contact</a>
+    </div>
+    <div class="hero">
+      <h1>Mock driving tests, marked to the DVSA standard.</h1>
+      <p class="sub">PassTrack lets UK driving instructors run full mock tests on real test-centre routes — live DL25 marking, fault locations pinned on the map, and a professional result report in the student's hand before the lesson ends.</p>
+      <div class="cta-row">
+        <a class="btn btn-green" href="mailto:info@rds-hub-ltd.co.uk?subject=PassTrack%20beta">Join the instructor beta</a>
+      </div>
+      <p class="soon">Coming soon to Google Play.</p>
+    </div>
+  </div>
+</header>
+
+<div class="strip">
+  <div class="wrap">
+    <div><b>DL25</b> real-time marking</div>
+    <div><b>9 routes</b> · 7 test centres</div>
+    <div><b>ADI Part 3</b> lesson marking</div>
+    <div><b>Works offline</b> — syncs later</div>
+  </div>
+</div>
+
+<section>
+  <div class="wrap">
+    <h2>Everything a mock test should be</h2>
+    <p class="lead">Built with working driving instructors, for the way a real test runs.</p>
+    <div class="grid">
+      <div class="card"><div class="ico">🗺️</div><h3>Real test-centre routes</h3>
+        <p>Sat-nav guidance on genuine local test routes — spoken instructions, heading-up view, just like test day.</p></div>
+      <div class="card"><div class="ico">📋</div><h3>DL25 marking, live</h3>
+        <p>Mark driving, serious and dangerous faults as they happen, with a quick note on each tap — the same sheet examiners use.</p></div>
+      <div class="card"><div class="ico">📍</div><h3>Every fault, pinned</h3>
+        <p>Faults are captured where they happened. Tap any fault in the report and see the exact spot on the map for the debrief.</p></div>
+      <div class="card"><div class="ico">📄</div><h3>Reports that look real</h3>
+        <p>Students get a result report styled like the real DVSA outcome email — clear, professional, and shareable as a PDF.</p></div>
+      <div class="card"><div class="ico">🎓</div><h3>Lessons, not just tests</h3>
+        <p>Record what each lesson covered, track progress over time, and keep every student's history in one place.</p></div>
+      <div class="card"><div class="ico">🧑‍🏫</div><h3>Practice mode</h3>
+        <p>Let students drive the routes with sat-nav guidance only — no marking, no pressure — before the mock test proper.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="band">
+  <div class="wrap">
+    <h2>Built for instructors first</h2>
+    <p class="lead">No tech skills needed. Add a student, start a drive, share the report — that's it.</p>
+    <ul>
+      <li>Verified instructor profiles with ADI/PDI badge photo</li>
+      <li>Link your students in one step — their reports and lesson history follow them</li>
+      <li>Works fully offline in the car; everything syncs when you're back on signal</li>
+      <li>ADI Part 3 marking for trainer development, alongside learner mock tests</li>
+    </ul>
+    <div class="cta-row" style="margin-top:26px;">
+      <a class="btn btn-green" href="mailto:info@rds-hub-ltd.co.uk?subject=PassTrack%20beta">Get early access</a>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="disclaim">
+      <b>The honest bit:</b> Driving Test Simulator is a training aid. Mock test results are practice records marked to the DVSA standard — they are not official driving test results, and we are not affiliated with or endorsed by the DVSA.
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="cols">
+      <div>© RDS HUB LTD · Company no. 16285288 · England &amp; Wales</div>
+      <div><a href="/privacy.html">Privacy policy</a> · <a href="mailto:info@rds-hub-ltd.co.uk">info@rds-hub-ltd.co.uk</a></div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
