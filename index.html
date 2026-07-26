@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Driving Test Simulator — DVSA-standard mock tests for driving instructors</title>
-<meta name="description" content="PassTrack by Driving Test Simulator: run DVSA-standard mock driving tests with real DL25 marking, sat-nav test routes, fault maps and professional reports. Built for UK driving instructors.">
+<title>PassTrack — DVSA-standard mock driving tests for learners &amp; instructors</title>
+<meta name="description" content="PassTrack by Driving Test Simulator: DVSA-standard mock driving tests with real DL25 marking, sat-nav test routes, fault maps and professional reports. Practise as a learner, teach and assess as an instructor.">
 <style>
   :root{--navy:#0b3d66;--ink:#0b0c0c;--grey:#505a5f;--bg:#f3f2f1;--green:#00703c;--line:#d9d9d7;
         --amber:#f47738;--red:#d4351c;}
@@ -16,24 +16,39 @@
   .logo{font-weight:800;font-size:18px;letter-spacing:.2px;}
   .logo span{color:#9fc3e0;font-weight:500;}
   .hero{padding:56px 0 64px;}
-  .hero h1{font-size:clamp(28px,5vw,44px);line-height:1.15;max-width:640px;}
-  .hero p.sub{margin-top:16px;font-size:18px;color:#cfe0ef;max-width:560px;}
-  .cta-row{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;}
+  .hero h1{font-size:clamp(28px,5vw,44px);line-height:1.15;max-width:680px;}
+  .hero p.sub{margin-top:16px;font-size:18px;color:#cfe0ef;max-width:600px;}
+  .cta-row{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;}
   .btn{display:inline-block;padding:14px 26px;border-radius:8px;font-weight:700;text-decoration:none;font-size:16px;}
   .btn-green{background:var(--green);color:#fff;}
   .btn-ghost{border:2px solid #9fc3e0;color:#fff;}
   .soon{font-size:13px;color:#9fc3e0;margin-top:10px;}
+  /* DISP-037: greyed "coming soon" store badge (real Play badge swapped in
+     at launch — text badge avoids shipping the trademark asset early). */
+  .badge-soon{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:8px;
+    background:#5b6b78;color:#e8eef2;font-weight:700;font-size:15px;cursor:default;border:1px solid #6f7f8c;}
+  .badge-soon small{font-weight:500;opacity:.85;}
   .strip{background:var(--bg);border-bottom:1px solid var(--line);}
   .strip .wrap{display:flex;gap:28px;flex-wrap:wrap;padding:18px 20px;font-size:14px;color:var(--grey);}
   .strip b{color:var(--ink);}
   section{padding:56px 0;}
   h2{font-size:28px;margin-bottom:10px;}
+  .eyebrow{color:var(--green);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;}
   .lead{color:var(--grey);max-width:640px;margin-bottom:36px;}
   .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
   .card{border:1px solid var(--line);border-radius:12px;padding:22px;background:#fff;}
   .card .ico{font-size:26px;}
   .card h3{font-size:17px;margin:10px 0 6px;}
   .card p{font-size:14.5px;color:var(--grey);}
+  .tag{display:inline-block;margin-top:10px;font-size:12px;font-weight:700;color:var(--amber);
+    border:1px solid var(--amber);border-radius:999px;padding:2px 10px;}
+  /* How it works — 3 numbered steps */
+  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;}
+  .step{position:relative;padding:22px;border:1px solid var(--line);border-radius:12px;}
+  .step .n{width:36px;height:36px;border-radius:50%;background:var(--navy);color:#fff;display:flex;
+    align-items:center;justify-content:center;font-weight:800;margin-bottom:12px;}
+  .step h3{font-size:17px;margin-bottom:6px;}
+  .step p{font-size:14.5px;color:var(--grey);}
   .band{background:var(--navy);color:#fff;}
   .band h2{color:#fff;}
   .band .lead{color:#cfe0ef;}
@@ -41,10 +56,18 @@
   .band li{padding:10px 0 10px 34px;position:relative;font-size:15.5px;}
   .band li::before{content:"✓";position:absolute;left:0;top:8px;width:24px;height:24px;border-radius:50%;
     background:var(--green);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;}
+  /* Screenshots — placeholder frames until real device captures land */
+  .shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;}
+  .shot{aspect-ratio:9/17;border:1px solid var(--line);border-radius:16px;background:#fff;
+    display:flex;align-items:flex-end;padding:14px;color:var(--grey);font-size:13px;}
+  .altbg{background:var(--bg);}
+  .capture{display:grid;grid-template-columns:1fr auto;gap:10px;max-width:520px;margin-top:8px;}
+  .capture input{padding:14px;border:1px solid var(--line);border-radius:8px;font-size:15px;width:100%;}
   .disclaim{background:var(--bg);border-left:5px solid var(--navy);padding:16px 20px;border-radius:6px;font-size:14px;color:var(--grey);}
   footer{background:var(--ink);color:#b1b4b6;padding:34px 0;font-size:13.5px;}
   footer a{color:#fff;}
   footer .cols{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;}
+  @media(max-width:520px){.capture{grid-template-columns:1fr;}}
 </style>
 </head>
 <body>
@@ -56,12 +79,13 @@
       <a class="btn btn-ghost" style="padding:9px 18px;font-size:14px;" href="mailto:info@rds-hub-ltd.co.uk">Contact</a>
     </div>
     <div class="hero">
-      <h1>Mock driving tests, marked to the DVSA standard.</h1>
-      <p class="sub">PassTrack lets UK driving instructors run full mock tests on real test-centre routes — live DL25 marking, fault locations pinned on the map, and a professional result report in the student's hand before the lesson ends.</p>
+      <h1>Learn to drive, get taught, get assessed — for a fraction of the price.</h1>
+      <p class="sub">PassTrack runs DVSA-standard mock tests with real DL25 marking, so you walk into your real test already knowing exactly where you stand.</p>
       <div class="cta-row">
-        <a class="btn btn-green" href="mailto:info@rds-hub-ltd.co.uk?subject=PassTrack%20beta">Join the instructor beta</a>
+        <span class="badge-soon">▶ Get PassTrack <small>· coming soon</small></span>
+        <a class="btn btn-ghost" href="#instructors">For instructors</a>
       </div>
-      <p class="soon">Coming soon to Google Play.</p>
+      <p class="soon">Android first. <a href="#notify" style="color:#fff;">Get notified when we launch →</a></p>
     </div>
   </div>
 </header>
@@ -75,6 +99,42 @@
   </div>
 </div>
 
+<!-- Section 2: the pitch, student angle -->
+<section>
+  <div class="wrap">
+    <p class="eyebrow">For learners</p>
+    <h2>Know exactly where you stand — before test day</h2>
+    <p class="lead">Real routes, real marking, real feedback. Practise the way the test actually runs.</p>
+    <div class="grid">
+      <div class="card"><div class="ico">🚗</div><h3>Practise anytime</h3>
+        <p>Drive the real test-centre routes with a legal supervising driver (21+ and licensed 3+ years). Sat-nav guidance leads the way — no instructor needed to get the miles in.</p></div>
+      <div class="card"><div class="ico">📊</div><h3>See exactly where you stand</h3>
+        <p>Every mock is marked to the DVSA DL25 standard — driving, serious and dangerous faults — with a clear pass/fail read and a score to track, so you know what to fix.</p></div>
+      <div class="card"><div class="ico">🏆</div><h3>Compete with friends</h3>
+        <p>Add friends by code and see who drives cleanest on the same route. Friendly, private, and opt-in.</p>
+        <span class="tag">Coming soon</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 4: how it works -->
+<section class="altbg">
+  <div class="wrap">
+    <p class="eyebrow">How it works</p>
+    <h2>Three steps, just like the real thing</h2>
+    <p class="lead">No setup, no faff. Pick, drive, review.</p>
+    <div class="steps">
+      <div class="step"><div class="n">1</div><h3>Pick a route</h3>
+        <p>Choose a real test-centre route near you and start the drive.</p></div>
+      <div class="step"><div class="n">2</div><h3>Drive with sat-nav guidance</h3>
+        <p>Follow spoken, heading-up directions — the same independent-driving feel as test day.</p></div>
+      <div class="step"><div class="n">3</div><h3>Get your DVSA-style result</h3>
+        <p>See your marked faults, a pass/fail read and a professional report you can keep.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 5: everything a mock test should be (feature detail) -->
 <section>
   <div class="wrap">
     <h2>Everything a mock test should be</h2>
@@ -96,8 +156,10 @@
   </div>
 </section>
 
-<section class="band">
+<!-- Section 3: instructor angle -->
+<section class="band" id="instructors">
   <div class="wrap">
+    <p class="eyebrow" style="color:#9fc3e0;">For instructors</p>
     <h2>Built for instructors first</h2>
     <p class="lead">No tech skills needed. Add a student, start a drive, share the report — that's it.</p>
     <ul>
@@ -107,16 +169,51 @@
       <li>ADI Part 3 marking for trainer development, alongside learner mock tests</li>
     </ul>
     <div class="cta-row" style="margin-top:26px;">
-      <a class="btn btn-green" href="mailto:info@rds-hub-ltd.co.uk?subject=PassTrack%20beta">Get early access</a>
+      <a class="btn btn-green" href="mailto:info@rds-hub-ltd.co.uk?subject=PassTrack%20instructor%20beta">Join the instructor beta</a>
     </div>
   </div>
 </section>
 
+<!-- Section 5b: screenshots carousel -->
+<!-- TODO (Saif/PC): replace these placeholder frames with real device
+     captures, shot alongside the smoke-test drive. Per DISP-034, blur or
+     crop any live GPS map so full route polylines are never exposed.
+     Shots: (a) sign-in/home  (b) fault marking mid-test  (c) result/debrief
+     (d) PDF report  (e) friends/leaderboard once DISP-035 ships. -->
+<section class="altbg">
+  <div class="wrap">
+    <p class="eyebrow">See it in action</p>
+    <h2>A quick look</h2>
+    <p class="lead">Real screens from the app. (Preview images coming with launch.)</p>
+    <div class="shots">
+      <div class="shot">Home &amp; sign-in</div>
+      <div class="shot">Fault marking, live</div>
+      <div class="shot">Result &amp; debrief</div>
+      <div class="shot">PDF report</div>
+      <div class="shot">Friends &amp; leaderboard</div>
+    </div>
+  </div>
+</section>
+
+<!-- Section 6: trust strip -->
 <section>
   <div class="wrap">
     <div class="disclaim">
       <b>The honest bit:</b> Driving Test Simulator is a training aid. Mock test results are practice records marked to the DVSA standard — they are not official driving test results, and we are not affiliated with or endorsed by the DVSA.
     </div>
+  </div>
+</section>
+
+<!-- Section 7: download CTA + email capture -->
+<section class="band" id="notify">
+  <div class="wrap">
+    <h2>Be first to know when we launch</h2>
+    <p class="lead">PassTrack lands on Google Play soon. Leave your email and we'll tell you the day it's live — no spam, just the launch.</p>
+    <form class="capture" action="mailto:info@rds-hub-ltd.co.uk" method="post" enctype="text/plain">
+      <input type="email" name="email" placeholder="you@example.com" aria-label="Your email" required>
+      <button class="btn btn-green" type="submit">Notify me</button>
+    </form>
+    <p class="soon" style="margin-top:14px;">Prefer email? <a href="mailto:info@rds-hub-ltd.co.uk?subject=Notify%20me%20when%20PassTrack%20launches" style="color:#fff;">info@rds-hub-ltd.co.uk</a></p>
   </div>
 </section>
 

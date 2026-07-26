@@ -25,7 +25,7 @@
 <main><div class="wrap">
 
 <h1>Privacy Policy</h1>
-<p><em>Last updated: 17 July 2026</em></p>
+<p><em>Last updated: 24 July 2026</em></p>
 
 <h2>Who we are</h2>
 <p>Driving Test Simulator is operated by <strong>RDS HUB LTD</strong> (company no. 16285288), a UK driving school registered at 6 Exeter Place, Walsall, England, WS2 9UQ. We are the data controller for the personal data described here. Contact: support@driving-test-simulator.co.uk.</p>
@@ -34,7 +34,9 @@
 <ul>
   <li><strong>Name and email</strong> — to create and secure your account and show who a report belongs to.</li>
   <li><strong>Driving licence number</strong> (learner accounts) — your unique identity, and how an instructor who already knows it can send you a link request. Licence numbers can only be looked up exactly, never listed or searched, and only your name is returned to a requesting instructor.</li>
+  <li><strong>Instructor email, for linking</strong> — a learner can send a link request to an instructor by entering the instructor's email address. Like licence numbers, an email can only be looked up exactly (never listed or searched), and only the instructor's name is returned so you can confirm the match before sending the request.</li>
   <li><strong>PRN and ADI badge photo</strong> (instructor accounts) — a one-time human check that you're a registered instructor.</li>
+  <li><strong>Friends and shared results (optional, off by default)</strong> — you can add friends with a share code. If you turn on result sharing, friends you have accepted can see a <strong>summary</strong> of each mock test — route, date, pass/fail, score and fault counts — on a friends-only leaderboard. Your full report, notes, signatures and location are <strong>never</strong> shared. Sharing stays off unless you switch it on, and you can switch it off again at any time.</li>
   <li><strong>Address (optional)</strong> — off by default. When sharing is off, your address stays on your device only, and is removed from our servers if previously shared.</li>
   <li><strong>Mock test and assessment reports</strong> — the core service: fault markings, scores, notes, in-app signatures and PDFs, kept in your account history.</li>
   <li><strong>Location (optional, with your permission)</strong> — three uses. (1) When you allow it, the spot where each fault is marked during a test is saved with that fault, so the report can show it on a map. (2) During a mock test, the route you drive is recorded (about one point every few seconds, from the moment the test timer starts until it stops) and saved with that test's report so you can see your whole drive on a map afterwards. Fault locations and the driven route are part of your report and are deleted with it. (3) During route guidance and practice, your live position is used on your device to follow the map and speak instructions — that live feed is <strong>not stored</strong> and never leaves your device (a practice drive's route summary is shown once when you finish and is not saved). Say no to the permission and everything still works; reports simply have no map pins or route replay.</li>
@@ -43,9 +45,10 @@
 
 <h2>Where your data lives</h2>
 <p>Google Firebase (Firestore and Firebase Authentication), stored in the <strong>London (europe-west2)</strong> region and encrypted in transit. Where any processing occurs outside the UK, it is protected by UK-approved safeguards (Google's standard contractual clauses). The app also keeps a copy on your device so it works offline.</p>
+<p><strong>Maps.</strong> Maps, route guidance and route replays are shown using <strong>Google Maps</strong>. When a map is displayed, your device requests map data from Google (and, during guidance, uses your location on-device to position the map). Google processes this under the <a href="https://policies.google.com/privacy">Google Privacy Policy</a> and the Google Maps Platform terms. We don't send Google your account details or your reports.</p>
 
 <h2>Legal bases (UK GDPR)</h2>
-<p>Providing the service you asked for (contract); verifying instructor badges (legitimate interest — you can object to this at any time, see Your rights); optional address sharing (consent, withdrawable any time in the app).</p>
+<p>Providing the service you asked for (contract); verifying instructor badges (legitimate interest — you can object to this at any time, see Your rights); optional address sharing and friends result-sharing (consent, off by default and withdrawable any time in the app).</p>
 
 <h2>How long we keep it</h2>
 <p>Your profile and reports are kept until you delete your account — nothing has a longer life than the account itself. Badge photos are kept while the account exists (they're re-checked if instructor status is questioned) and go with it on deletion. Deletion requests are completed within <strong>30 days</strong>, and residual copies in system backups are purged within 30 days of deletion. You can delete in the app or via our <a href="delete-account.html">account deletion page</a>. PDFs you exported yourself remain under your control.</p>
@@ -56,7 +59,13 @@
 <h2>Children</h2>
 <p>The app is intended for learner drivers (normally 17+, in some cases 16) and instructors. It is not directed at children under 16.</p>
 
-<h2>Sharing</h2>
+<h2>Sharing between users</h2>
+<p>Some features let you share with people you choose — never automatically:</p>
+<ul>
+  <li><strong>Your instructor</strong> — an instructor you link with and accept can see your mock test reports and lesson records. You can remove the link at any time.</li>
+  <li><strong>Lessons</strong> — an instructor can choose to share a lesson record with a linked student, and controls this for each lesson; an instructor's private notes are never shared with the student.</li>
+  <li><strong>Friends</strong> — off by default. If you turn on result sharing, friends you accept see only a summary of your mock results (never the full report, notes, signatures or location). You can turn it off again any time.</li>
+</ul>
 <p>We don't sell your data or share it with third parties for their own purposes. Google (Firebase) processes data on our behalf under their data-processing terms.</p>
 
 <h2>Not a DVSA service</h2>
