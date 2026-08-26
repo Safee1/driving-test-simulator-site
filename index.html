@@ -1,230 +1,624 @@
 <!DOCTYPE html>
-<html lang="en-GB">
+<html lang="en-GB" class="no-js">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PassTrack — DVSA-standard mock driving tests for learners &amp; instructors</title>
-<meta name="description" content="PassTrack by Driving Test Simulator: DVSA-standard mock driving tests with real DL25 marking, sat-nav test routes, fault maps and professional reports. Practise as a learner, teach and assess as an instructor.">
-<style>
-  :root{--navy:#0b3d66;--ink:#0b0c0c;--grey:#505a5f;--bg:#f3f2f1;--green:#00703c;--line:#d9d9d7;
-        --amber:#f47738;--red:#d4351c;}
-  *{box-sizing:border-box;margin:0;padding:0;}
-  body{font-family:-apple-system,'Segoe UI',Roboto,Arial,sans-serif;color:var(--ink);line-height:1.6;background:#fff;}
-  .wrap{max-width:1000px;margin:0 auto;padding:0 20px;}
-  header{background:var(--navy);color:#fff;}
-  .topbar{display:flex;align-items:center;justify-content:space-between;padding:16px 0;}
-  .logo{font-weight:800;font-size:18px;letter-spacing:.2px;}
-  .logo span{color:#9fc3e0;font-weight:500;}
-  .hero{padding:56px 0 64px;}
-  .hero h1{font-size:clamp(28px,5vw,44px);line-height:1.15;max-width:680px;}
-  .hero p.sub{margin-top:16px;font-size:18px;color:#cfe0ef;max-width:600px;}
-  .cta-row{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;}
-  .btn{display:inline-block;padding:14px 26px;border-radius:8px;font-weight:700;text-decoration:none;font-size:16px;}
-  .btn-green{background:var(--green);color:#fff;}
-  .btn-ghost{border:2px solid #9fc3e0;color:#fff;}
-  .soon{font-size:13px;color:#9fc3e0;margin-top:10px;}
-  /* DISP-037: greyed "coming soon" store badge (real Play badge swapped in
-     at launch — text badge avoids shipping the trademark asset early). */
-  .badge-soon{display:inline-flex;align-items:center;gap:8px;padding:12px 22px;border-radius:8px;
-    background:#5b6b78;color:#e8eef2;font-weight:700;font-size:15px;cursor:default;border:1px solid #6f7f8c;}
-  .badge-soon small{font-weight:500;opacity:.85;}
-  .strip{background:var(--bg);border-bottom:1px solid var(--line);}
-  .strip .wrap{display:flex;gap:28px;flex-wrap:wrap;padding:18px 20px;font-size:14px;color:var(--grey);}
-  .strip b{color:var(--ink);}
-  section{padding:56px 0;}
-  h2{font-size:28px;margin-bottom:10px;}
-  .eyebrow{color:var(--green);font-weight:700;font-size:13px;letter-spacing:.08em;text-transform:uppercase;margin-bottom:6px;}
-  .lead{color:var(--grey);max-width:640px;margin-bottom:36px;}
-  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;}
-  .card{border:1px solid var(--line);border-radius:12px;padding:22px;background:#fff;}
-  .card .ico{font-size:26px;}
-  .card h3{font-size:17px;margin:10px 0 6px;}
-  .card p{font-size:14.5px;color:var(--grey);}
-  .tag{display:inline-block;margin-top:10px;font-size:12px;font-weight:700;color:var(--amber);
-    border:1px solid var(--amber);border-radius:999px;padding:2px 10px;}
-  /* How it works — 3 numbered steps */
-  .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:20px;}
-  .step{position:relative;padding:22px;border:1px solid var(--line);border-radius:12px;}
-  .step .n{width:36px;height:36px;border-radius:50%;background:var(--navy);color:#fff;display:flex;
-    align-items:center;justify-content:center;font-weight:800;margin-bottom:12px;}
-  .step h3{font-size:17px;margin-bottom:6px;}
-  .step p{font-size:14.5px;color:var(--grey);}
-  .band{background:var(--navy);color:#fff;}
-  .band h2{color:#fff;}
-  .band .lead{color:#cfe0ef;}
-  .band ul{list-style:none;max-width:640px;}
-  .band li{padding:10px 0 10px 34px;position:relative;font-size:15.5px;}
-  .band li::before{content:"✓";position:absolute;left:0;top:8px;width:24px;height:24px;border-radius:50%;
-    background:var(--green);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;}
-  /* Screenshots — placeholder frames until real device captures land */
-  .shots{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;}
-  .shot{aspect-ratio:9/17;border:1px solid var(--line);border-radius:16px;background:#fff;
-    display:flex;align-items:flex-end;padding:14px;color:var(--grey);font-size:13px;}
-  .altbg{background:var(--bg);}
-  .capture{display:grid;grid-template-columns:1fr auto;gap:10px;max-width:520px;margin-top:8px;}
-  .capture input{padding:14px;border:1px solid var(--line);border-radius:8px;font-size:15px;width:100%;}
-  .disclaim{background:var(--bg);border-left:5px solid var(--navy);padding:16px 20px;border-radius:6px;font-size:14px;color:var(--grey);}
-  footer{background:var(--ink);color:#b1b4b6;padding:34px 0;font-size:13.5px;}
-  footer a{color:#fff;}
-  footer .cols{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap;}
-  @media(max-width:520px){.capture{grid-template-columns:1fr;}}
-</style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Consent Mode v2 defaults. Runs before anything else on the page so no
+     Google service can ever write storage ahead of a choice. -->
+<script>
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'denied',security_storage:'granted'});
+document.documentElement.classList.remove('no-js');
+</script>
+
+<title>Driving Test Simulator – Free Mock Driving Test App (UK)</title>
+<meta name="description" content="Rehearse your UK driving test: drive real test-centre routes with sat-nav and a voice coach, get marked on a DL25-style sheet. Free on Android.">
+<link rel="canonical" href="https://driving-test-simulator.co.uk/">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Driving Test Simulator">
+<meta property="og:locale" content="en_GB">
+<meta property="og:url" content="https://driving-test-simulator.co.uk/">
+<meta property="og:title" content="Driving Test Simulator – Free Mock Driving Test App (UK)">
+<meta property="og:description" content="Rehearse your UK driving test: drive real test-centre routes with sat-nav and a voice coach, get marked on a DL25-style sheet. Free on Android.">
+<meta property="og:image" content="https://driving-test-simulator.co.uk/assets/img/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Your driving test, rehearsed. Free mock driving tests on Android, shown next to the app guiding a practice drive at a roundabout.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Driving Test Simulator – Free Mock Driving Test App (UK)">
+<meta name="twitter:description" content="Rehearse your UK driving test: drive real test-centre routes with sat-nav and a voice coach, get marked on a DL25-style sheet. Free on Android.">
+<meta name="twitter:image" content="https://driving-test-simulator.co.uk/assets/img/og-image.png">
+<meta name="twitter:image:alt" content="Your driving test, rehearsed. Free mock driving tests on Android.">
+
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<meta name="theme-color" content="#1D70B8">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@700;800&amp;family=Manrope:wght@500;700&amp;display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://driving-test-simulator.co.uk/#app",
+      "name": "Driving Test Simulator",
+      "operatingSystem": "Android",
+      "applicationCategory": "EducationalApplication",
+      "description": "Rehearse your UK driving test: drive real test-centre routes with sat-nav and a voice coach, then get marked on a DL25-style sheet.",
+      "url": "https://driving-test-simulator.co.uk/",
+      "installUrl": "https://play.google.com/store/apps/details?id=uk.co.drivingtestsimulator.passtrack",
+      "isAccessibleForFree": true,
+      "screenshot": [
+        "https://driving-test-simulator.co.uk/assets/img/shots/practice-nav-960.webp",
+        "https://driving-test-simulator.co.uk/assets/img/shots/result-960.webp"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "GBP"
+      },
+      "author": { "@id": "https://driving-test-simulator.co.uk/#org" }
+    },
+    {
+      "@type": "Organization",
+      "@id": "https://driving-test-simulator.co.uk/#org",
+      "name": "RDS HUB LTD",
+      "url": "https://driving-test-simulator.co.uk/",
+      "logo": "https://driving-test-simulator.co.uk/icon-512.png",
+      "email": "info@rds-hub-ltd.co.uk",
+      "identifier": "16285288",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "6 Exeter Place",
+        "addressLocality": "Walsall",
+        "postalCode": "WS2 9UQ",
+        "addressCountry": "GB"
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
+<!--
+  THESIS: A rehearsal, not a brochure. This page proves the app by showing the
+  screens a learner actually drives with, and refuses the app-landing default of
+  claim-stacked feature cards over an empty device silhouette.
+  OWN-WORLD: Bright learner brand on the app's own #1D70B8 blue — paper, cream
+  and sky-50 grounds alternating into a navy instructor band; sun-yellow only as
+  highlight; Bricolage Grotesque display over Manrope body; 12px cards, 999px
+  chips, 44px phone frames carrying real captures.
+  STORY: A learner sees the real route guidance and the real DL25 sheet, believes
+  this rehearses the actual test, and installs it free from Google Play.
+  FIRST VIEWPORT: Left, the H1 "Your driving test, rehearsed." with sub, Play
+  badge and the free/not-DVSA trust line. Right, two floating phones — the
+  roundabout practice-nav shot in front, the result screen rotated behind — over
+  a soft sun blob.
+  FORM: Brief-pinned direction (owner-approved); no concept roll.
+  FINISH: unreviewed and undocumented is unfinished; this build ends with the finish review, the verdict, and DESIGN.md
+-->
+<a class="skip" href="#main">Skip to content</a>
 
-<header>
+<header class="site-header">
   <div class="wrap">
-    <div class="topbar">
-      <div class="logo">🚗 Driving Test Simulator <span>· PassTrack</span></div>
-      <a class="btn btn-ghost" style="padding:9px 18px;font-size:14px;" href="mailto:info@rds-hub-ltd.co.uk">Contact</a>
-    </div>
-    <div class="hero">
-      <h1>Learn to drive, get taught, get assessed — for a fraction of the price.</h1>
-      <p class="sub">PassTrack runs DVSA-standard mock tests with real DL25 marking, so you walk into your real test already knowing exactly where you stand.</p>
-      <div class="cta-row">
-        <span class="badge-soon">▶ Get PassTrack <small>· coming soon</small></span>
-        <a class="btn btn-ghost" href="#instructors">For instructors</a>
-      </div>
-      <p class="soon">Android first. <a href="#notify" style="color:#fff;">Get notified when we launch →</a></p>
+    <a class="brand-lockup" href="/">
+      <span class="mark">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><line x1="12" y1="9.8" x2="12" y2="3"/><line x1="10.1" y1="13.1" x2="4.21" y2="16.5"/><line x1="13.9" y1="13.1" x2="19.79" y2="16.5"/><circle cx="12" cy="12" r="2.2" fill="currentColor" stroke="none"/></svg>
+      </span>
+      Driving Test<br>Simulator
+    </a>
+
+    <nav class="site-nav" aria-label="Main">
+      <ul>
+        <li><a href="#learners">Learners</a></li>
+        <li><a href="#instructors">Instructors</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ul>
+    </nav>
+
+    <div class="header-cta">
+      <a class="btn-play" data-cta="nav" href="https://play.google.com/store/apps/details?id=uk.co.drivingtestsimulator.passtrack" target="_blank" rel="noopener">
+        <img src="/assets/img/google-play-badge.png" width="646" height="250" alt="Get it on Google Play">
+      </a>
+      <a class="btn header-cta-text" data-cta="nav" href="https://play.google.com/store/apps/details?id=uk.co.drivingtestsimulator.passtrack" target="_blank" rel="noopener">Get the app</a>
     </div>
   </div>
 </header>
 
-<div class="strip">
-  <div class="wrap">
-    <div><b>DL25</b> real-time marking</div>
-    <div><b>9 routes</b> · 7 test centres</div>
-    <div><b>ADI Part 3</b> lesson marking</div>
-    <div><b>Works offline</b> — syncs later</div>
-  </div>
-</div>
+<main id="main">
 
-<!-- Section 2: the pitch, student angle -->
-<section>
-  <div class="wrap">
-    <p class="eyebrow">For learners</p>
-    <h2>Know exactly where you stand — before test day</h2>
-    <p class="lead">Real routes, real marking, real feedback. Practise the way the test actually runs.</p>
-    <div class="grid">
-      <div class="card"><div class="ico">🚗</div><h3>Practise anytime</h3>
-        <p>Drive the real test-centre routes with a legal supervising driver (21+ and licensed 3+ years). Sat-nav guidance leads the way — no instructor needed to get the miles in.</p></div>
-      <div class="card"><div class="ico">📊</div><h3>See exactly where you stand</h3>
-        <p>Every mock is marked to the DVSA DL25 standard — driving, serious and dangerous faults — with a clear pass/fail read and a score to track, so you know what to fix.</p></div>
-      <div class="card"><div class="ico">🏆</div><h3>Compete with friends</h3>
-        <p>Add friends by code and see who drives cleanest on the same route. Friendly, private, and opt-in.</p>
-        <span class="tag">Coming soon</span></div>
+  <!-- ================= Hero ================= -->
+  <section class="hero" aria-labelledby="hero-h">
+    <div class="wrap">
+      <div class="hero-grid">
+        <div>
+          <p class="hero-eyebrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><line x1="12" y1="9.8" x2="12" y2="3"/><line x1="10.1" y1="13.1" x2="4.21" y2="16.5"/><line x1="13.9" y1="13.1" x2="19.79" y2="16.5"/></svg>
+            Free mock driving tests · Android
+          </p>
+
+          <h1 id="hero-h">Your driving test, rehearsed.</h1>
+
+          <p class="hero-sub">Drive real test-centre routes with sat-nav and a voice coach, then get marked on a DL25-style sheet — the same fault categories examiners use. Walk into the real thing knowing exactly where you stand.</p>
+
+          <div class="cta-row">
+            <a class="btn-play" data-cta="hero" href="https://play.google.com/store/apps/details?id=uk.co.drivingtestsimulator.passtrack" target="_blank" rel="noopener">
+              <img src="/assets/img/google-play-badge.png" width="646" height="250" alt="Get it on Google Play">
+            </a>
+            <a class="btn btn--ghost" href="#how">See how it works</a>
+          </div>
+
+          <p class="hero-trust">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="m8.2 12.3 2.6 2.6 5-5.4"/></svg>
+            Free · No ads · No subscription · Not affiliated with the DVSA
+          </p>
+        </div>
+
+        <div class="hero-phones">
+          <div class="phone phone--front">
+            <picture>
+              <source type="image/webp" srcset="/assets/img/shots/practice-nav-480.webp 480w, /assets/img/shots/practice-nav-960.webp 960w" sizes="(min-width: 900px) 280px, 60vw">
+              <img src="/assets/img/shots/practice-nav-480.png" width="480" height="1040" fetchpriority="high" decoding="async" alt="The app guiding a practice drive: a black instruction card reads &quot;Now — at the roundabout, take the 4th exit onto Winston Way&quot; with the spoken coaching prompt &quot;Give way now.&quot; below it, over a live map of the roundabout and a 30 mph speed limit.">
+            </picture>
+          </div>
+          <div class="phone phone--back" aria-hidden="true">
+            <picture>
+              <source type="image/webp" srcset="/assets/img/shots/result-480.webp 480w, /assets/img/shots/result-960.webp 960w" sizes="(min-width: 900px) 246px, 53vw">
+              <img src="/assets/img/shots/result-480.png" width="480" height="1040" loading="lazy" decoding="async" alt="">
+            </picture>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Section 4: how it works -->
-<section class="altbg">
-  <div class="wrap">
-    <p class="eyebrow">How it works</p>
-    <h2>Three steps, just like the real thing</h2>
-    <p class="lead">No setup, no faff. Pick, drive, review.</p>
-    <div class="steps">
-      <div class="step"><div class="n">1</div><h3>Pick a route</h3>
-        <p>Choose a real test-centre route near you and start the drive.</p></div>
-      <div class="step"><div class="n">2</div><h3>Drive with sat-nav guidance</h3>
-        <p>Follow spoken, heading-up directions — the same independent-driving feel as test day.</p></div>
-      <div class="step"><div class="n">3</div><h3>Get your DVSA-style result</h3>
-        <p>See your marked faults, a pass/fail read and a professional report you can keep.</p></div>
+  <!-- ================= Proof rail ================= -->
+  <section class="proof" aria-labelledby="proof-h">
+    <div class="wrap">
+      <h2 id="proof-h" class="visually-hidden">What you get</h2>
+      <ul>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 20V9a3 3 0 0 1 3-3h6a3 3 0 0 0 3-3"/><circle cx="6" cy="21" r="1.6"/><circle cx="18" cy="3" r="1.6"/></svg>
+          <div>18 test routes<span>Across the West Midlands and Greater London</span></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+          <div>5 test centres<span>Wednesbury, Birmingham, Goodmayes, Hornchurch</span></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 4H7.5A1.5 1.5 0 0 0 6 5.5v14A1.5 1.5 0 0 0 7.5 21h9a1.5 1.5 0 0 0 1.5-1.5v-14A1.5 1.5 0 0 0 16.5 4H15"/><rect x="9" y="2.6" width="6" height="3.2" rx="1"/><path d="m9.6 13 1.9 1.9 3.6-3.9"/></svg>
+          <div>DL25-style marking<span>Driving, serious and dangerous faults</span></div>
+        </li>
+        <li>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.6 13.4 13 21a1.8 1.8 0 0 1-2.6 0l-7-7a1.8 1.8 0 0 1-.5-1.3V5a2 2 0 0 1 2-2h7.7c.5 0 1 .2 1.3.5l6.7 6.7a1.9 1.9 0 0 1 0 2.7Z"/><circle cx="8" cy="8" r="1.4"/></svg>
+          <div>Free, no ads<span>No subscription, no in-app purchases</span></div>
+        </li>
+      </ul>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Section 5: everything a mock test should be (feature detail) -->
-<section>
-  <div class="wrap">
-    <h2>Everything a mock test should be</h2>
-    <p class="lead">Built with working driving instructors, for the way a real test runs.</p>
-    <div class="grid">
-      <div class="card"><div class="ico">🗺️</div><h3>Real test-centre routes</h3>
-        <p>Sat-nav guidance on genuine local test routes — spoken instructions, heading-up view, just like test day.</p></div>
-      <div class="card"><div class="ico">📋</div><h3>DL25 marking, live</h3>
-        <p>Mark driving, serious and dangerous faults as they happen, with a quick note on each tap — the same sheet examiners use.</p></div>
-      <div class="card"><div class="ico">📍</div><h3>Every fault, pinned</h3>
-        <p>Faults are captured where they happened. Tap any fault in the report and see the exact spot on the map for the debrief.</p></div>
-      <div class="card"><div class="ico">📄</div><h3>Reports that look real</h3>
-        <p>Students get a result report styled like the real DVSA outcome email — clear, professional, and shareable as a PDF.</p></div>
-      <div class="card"><div class="ico">🎓</div><h3>Lessons, not just tests</h3>
-        <p>Record what each lesson covered, track progress over time, and keep every student's history in one place.</p></div>
-      <div class="card"><div class="ico">🧑‍🏫</div><h3>Practice mode</h3>
-        <p>Let students drive the routes with sat-nav guidance only — no marking, no pressure — before the mock test proper.</p></div>
+  <!-- ================= How it works ================= -->
+  <section class="section" id="how" aria-labelledby="how-h">
+    <div class="wrap">
+      <div class="head reveal">
+        <h2 id="how-h">Three steps, the way the test runs</h2>
+        <p>Pick a route, drive it, see the sheet. Nothing to set up beyond an account.</p>
+      </div>
+
+      <div class="steps">
+        <div class="step reveal">
+          <div class="phone">
+            <picture>
+              <source type="image/webp" srcset="/assets/img/shots/routes-480.webp 480w, /assets/img/shots/routes-960.webp 960w" sizes="(min-width: 900px) 218px, 44vw">
+              <img src="/assets/img/shots/routes-480.png" width="480" height="1040" loading="lazy" decoding="async" alt="The Test routes screen listing test centres with their route counts — Wednesbury with 7 routes, Birmingham Garretts Green with 1, Goodmayes with 5 and Hornchurch with 4.">
+            </picture>
+          </div>
+          <div class="step-body">
+            <span class="step-n" aria-hidden="true">1</span>
+            <div>
+              <h3>Pick a route</h3>
+              <p>Choose a test centre near you and open one of its routes. Every route tells you where it came from and how it was checked before you drive a metre of it.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="step reveal">
+          <div class="phone">
+            <picture>
+              <source type="image/webp" srcset="/assets/img/shots/satnav-480.webp 480w, /assets/img/shots/satnav-960.webp 960w" sizes="(min-width: 900px) 218px, 44vw">
+              <img src="/assets/img/shots/satnav-480.png" width="480" height="1040" loading="lazy" decoding="async" alt="Turn-by-turn guidance mid-drive: a card reads &quot;450 yards — turn left onto Percy Road&quot; above a heading-up map, with the current 30 mph limit shown.">
+            </picture>
+          </div>
+          <div class="step-body">
+            <span class="step-n" aria-hidden="true">2</span>
+            <div>
+              <h3>Drive it with sat-nav and coaching</h3>
+              <p>Spoken, heading-up directions the whole way round. On a practice drive a voice coach talks you through each approach; mock tests stay uncoached, because an examiner wouldn't prompt you.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="step reveal">
+          <div class="phone">
+            <picture>
+              <source type="image/webp" srcset="/assets/img/shots/fault-marking-480.webp 480w, /assets/img/shots/fault-marking-960.webp 960w" sizes="(min-width: 900px) 218px, 44vw">
+              <img src="/assets/img/shots/fault-marking-480.png" width="480" height="1040" loading="lazy" decoding="async" alt="The examiner marking sheet mid-test: a DL25-style grid of fault categories such as eyesight, angle start and normal stop, each with driving, serious and dangerous columns, above a running fault tally and timer.">
+            </picture>
+          </div>
+          <div class="step-body">
+            <span class="step-n" aria-hidden="true">3</span>
+            <div>
+              <h3>Get marked, see what to fix</h3>
+              <p>Faults go on a DL25-style sheet as they happen and are pinned to the spot on the map. You finish with a result, a fault breakdown and a PDF report you can keep.</p>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Section 3: instructor angle -->
-<section class="band" id="instructors">
-  <div class="wrap">
-    <p class="eyebrow" style="color:#9fc3e0;">For instructors</p>
-    <h2>Built for instructors first</h2>
-    <p class="lead">No tech skills needed. Add a student, start a drive, share the report — that's it.</p>
-    <ul>
-      <li>Verified instructor profiles with ADI/PDI badge photo</li>
-      <li>Link your students in one step — their reports and lesson history follow them</li>
-      <li>Works fully offline in the car; everything syncs when you're back on signal</li>
-      <li>ADI Part 3 marking for trainer development, alongside learner mock tests</li>
-    </ul>
-    <div class="cta-row" style="margin-top:26px;">
-      <a class="btn btn-green" href="mailto:info@rds-hub-ltd.co.uk?subject=PassTrack%20instructor%20beta">Join the instructor beta</a>
+  <!-- ================= For learners ================= -->
+  <section class="section section--sky" id="learners" aria-labelledby="learners-h">
+    <div class="wrap">
+      <div class="head reveal">
+        <h2 id="learners-h">Everything a mock test should be</h2>
+        <p>Built to run the way the real thing runs — the same routes, the same fault categories, the same silence when it counts.</p>
+      </div>
+
+      <div class="features">
+        <article class="card reveal">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 4-6 2.4v13.2L9 17.2l6 2.4 6-2.4V4l-6 2.4Z"/><path d="M9 4v13.2M15 6.4v13.2"/></svg></span>
+          <h3>Real test-centre routes</h3>
+          <p>Eighteen routes across five centres, driven with turn-by-turn sat-nav — not a generic drive around the block.</p>
+        </article>
+
+        <article class="card reveal">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9.5v5h3.2L12 18.6V5.4L7.2 9.5Z"/><path d="M16.2 9.2a4 4 0 0 1 0 5.6"/><path d="M18.8 6.6a7.6 7.6 0 0 1 0 10.8"/></svg></span>
+          <h3>A voice coach on practice drives</h3>
+          <p>Heads-up, get ready, position, then “give way now” at the junction. Switch to a mock test and the coaching stops.</p>
+        </article>
+
+        <article class="card reveal">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2.4"/><path d="M4 9.4h16M9.6 9.4V20"/><path d="m13 13.6 1.6 1.6 2.6-2.9"/></svg></span>
+          <h3>DL25-style fault marking</h3>
+          <p>Driving, serious and dangerous — the same three categories an examiner uses, marked as they happen with a note on each.</p>
+        </article>
+
+        <article class="card reveal">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><path d="M12 7v3.6M12 13.4h.01"/></svg></span>
+          <h3>Every fault pinned on the map</h3>
+          <p>Tap a fault in the report and see exactly where it happened, so the debrief is about a place rather than a memory.</p>
+        </article>
+
+        <article class="card reveal">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8Z"/><path d="M14 3v5h5"/><path d="M8.8 13h6.4M8.8 16.6h4.2"/></svg></span>
+          <h3>Your result, and a PDF to keep</h3>
+          <p>A clear outcome, the faults that got you there and a report you can save or send on to whoever is teaching you.</p>
+        </article>
+
+        <article class="card reveal">
+          <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7.5 4h9v4a4.5 4.5 0 0 1-9 0Z"/><path d="M16.5 5.4h2.6a2.4 2.4 0 0 1 0 4.8h-.7M7.5 5.4H4.9a2.4 2.4 0 0 0 0 4.8h.7"/><path d="M12 12.5V16m-3 4h6l-.6-4h-4.8Z"/></svg></span>
+          <h3>A friends leaderboard, if you want one</h3>
+          <p>Off by default. Turn it on and friends you've accepted see a summary only — route, date, outcome and score. Never the full report.</p>
+        </article>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Section 5b: screenshots carousel -->
-<!-- TODO (Saif/PC): replace these placeholder frames with real device
-     captures, shot alongside the smoke-test drive. Per DISP-034, blur or
-     crop any live GPS map so full route polylines are never exposed.
-     Shots: (a) sign-in/home  (b) fault marking mid-test  (c) result/debrief
-     (d) PDF report  (e) friends/leaderboard once DISP-035 ships. -->
-<section class="altbg">
-  <div class="wrap">
-    <p class="eyebrow">See it in action</p>
-    <h2>A quick look</h2>
-    <p class="lead">Real screens from the app. (Preview images coming with launch.)</p>
-    <div class="shots">
-      <div class="shot">Home &amp; sign-in</div>
-      <div class="shot">Fault marking, live</div>
-      <div class="shot">Result &amp; debrief</div>
-      <div class="shot">PDF report</div>
-      <div class="shot">Friends &amp; leaderboard</div>
+  <!-- ================= Gallery ================= -->
+  <section class="section" id="gallery" aria-labelledby="gallery-h">
+    <div class="wrap">
+      <div class="head reveal">
+        <h2 id="gallery-h">A look at the real screens</h2>
+        <p>No mock-ups. These are captures from the app as it ships today.</p>
+        <p class="gallery-hint">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 8 3.6 11.4a.8.8 0 0 0 0 1.2L7 16M17 8l3.4 3.4a.8.8 0 0 1 0 1.2L17 16M4.4 12h15.2"/></svg>
+          Scroll sideways for more
+        </p>
+      </div>
     </div>
-  </div>
-</section>
 
-<!-- Section 6: trust strip -->
-<section>
-  <div class="wrap">
-    <div class="disclaim">
-      <b>The honest bit:</b> Driving Test Simulator is a training aid. Mock test results are practice records marked to the DVSA standard — they are not official driving test results, and we are not affiliated with or endorsed by the DVSA.
+    <div class="wrap">
+      <div class="gallery">
+        <figure class="reveal">
+          <div class="phone">
+            <picture>
+              <source type="image/webp" srcset="/assets/img/shots/coaching-480.webp 480w, /assets/img/shots/coaching-960.webp 960w" sizes="(min-width: 720px) 258px, 68vw">
+              <img src="/assets/img/shots/coaching-480.png" width="480" height="1040" loading="lazy" decoding="async" alt="The Coaching settings screen, with sliders for prompt timing and slow-down reminders, and a &quot;What you'll hear&quot; panel showing the heads-up, get ready, position and at-the-junction lines for a roundabout.">
+            </picture>
+          </div>
+          <figcaption><b>Coaching</b>How strongly the voice coach prompts you, and exactly what you'll hear on the approach. Mock tests stay uncoached.</figcaption>
+        </figure>
+
+        <figure class="reveal">
+          <div class="phone">
+            <picture>
+              <source type="image/webp" srcset="/assets/img/shots/route-detail-480.webp 480w, /assets/img/shots/route-detail-960.webp 960w" sizes="(min-width: 720px) 258px, 68vw">
+              <img src="/assets/img/shots/route-detail-480.png" width="480" height="1040" loading="lazy" decoding="async" alt="Route 8 at Goodmayes, showing the full route drawn on a map and a banner reading &quot;Desk-checked, not road-driven — verified against map data and a simulated drive, but no one has driven it on the road&quot;, above buttons for a practice drive or a marked mock test.">
+            </picture>
+          </div>
+          <figcaption><b>Route detail</b>Every route says how it was checked, in the app, before you drive it.</figcaption>
+        </figure>
+
+        <figure class="reveal">
+          <div class="phone">
+            <picture>
+              <source type="image/webp" srcset="/assets/img/shots/fault-marking-480.webp 480w, /assets/img/shots/fault-marking-960.webp 960w" sizes="(min-width: 720px) 258px, 68vw">
+              <img src="/assets/img/shots/fault-marking-480.png" width="480" height="1040" loading="lazy" decoding="async" alt="The DL25-style examiner marking sheet with a live timer, a running fault tally, a fault search box and rows of driving, serious and dangerous buttons for each category.">
+            </picture>
+          </div>
+          <figcaption><b>Fault marking</b>Driving, serious and dangerous, marked live with a note on each.</figcaption>
+        </figure>
+
+        <figure class="reveal">
+          <div class="phone">
+            <picture>
+              <source type="image/webp" srcset="/assets/img/shots/result-480.webp 480w, /assets/img/shots/result-960.webp 960w" sizes="(min-width: 720px) 258px, 68vw">
+              <img src="/assets/img/shots/result-480.png" width="480" height="1040" loading="lazy" decoding="async" alt="A finished mock test result: an amber banner reading &quot;Practice test — not an official DVSA result&quot;, an outcome of Passed, and a list of the two driving faults recorded.">
+            </picture>
+          </div>
+          <figcaption><b>Result</b>The outcome, the faults behind it, and a report you can keep.</figcaption>
+        </figure>
+
+        <figure class="reveal">
+          <div class="phone">
+            <picture>
+              <source type="image/webp" srcset="/assets/img/shots/routes-480.webp 480w, /assets/img/shots/routes-960.webp 960w" sizes="(min-width: 720px) 258px, 68vw">
+              <img src="/assets/img/shots/routes-480.png" width="480" height="1040" loading="lazy" decoding="async" alt="The Test routes browser, listing test centres by region with the number of routes available at each.">
+            </picture>
+          </div>
+          <figcaption><b>Test routes</b>Browse by test centre and see how many routes each one has.</figcaption>
+        </figure>
+      </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- Section 7: download CTA + email capture -->
-<section class="band" id="notify">
-  <div class="wrap">
-    <h2>Be first to know when we launch</h2>
-    <p class="lead">PassTrack lands on Google Play soon. Leave your email and we'll tell you the day it's live — no spam, just the launch.</p>
-    <form class="capture" action="mailto:info@rds-hub-ltd.co.uk" method="post" enctype="text/plain">
-      <input type="email" name="email" placeholder="you@example.com" aria-label="Your email" required>
-      <button class="btn btn-green" type="submit">Notify me</button>
-    </form>
-    <p class="soon" style="margin-top:14px;">Prefer email? <a href="mailto:info@rds-hub-ltd.co.uk?subject=Notify%20me%20when%20PassTrack%20launches" style="color:#fff;">info@rds-hub-ltd.co.uk</a></p>
-  </div>
-</section>
+  <!-- ================= Instructors ================= -->
+  <section class="section section--navy on-navy" id="instructors" aria-labelledby="instructors-h">
+    <div class="wrap">
+      <div class="head reveal">
+        <h2 id="instructors-h">For instructors and trainers</h2>
+        <p>Add a student, run the drive, share the report. No tech skills, no setup, no cost.</p>
+      </div>
 
-<footer>
+      <div class="band-grid">
+        <ul class="ticks reveal">
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.4 4.4L19 7.4"/></svg>
+            <span>An ADI/PDI badge check — send your PRN and a photo of your badge, and a person looks at it.</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.4 4.4L19 7.4"/></svg>
+            <span>Link a student in one step, and their reports and lesson history follow them.</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.4 4.4L19 7.4"/></svg>
+            <span>Mark a mock test on the DL25-style sheet as it happens, with every fault pinned to the map.</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.4 4.4L19 7.4"/></svg>
+            <span>ADI Part 3 marking for trainer development, alongside learner mock tests.</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.4 4.4L19 7.4"/></svg>
+            <span>Works in the car without signal — everything syncs when you're back on.</span>
+          </li>
+          <li>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.4 4.4L19 7.4"/></svg>
+            <span>Hand the student a result and a PDF report the moment the drive ends.</span>
+          </li>
+        </ul>
+
+        <div class="band-cta reveal">
+          <h3>Sign up as an instructor inside the app</h3>
+          <p>Install it, choose an instructor account, and send your PRN and badge photo for the check. There's nothing to buy and no separate portal to log into.</p>
+          <div class="cta-row">
+            <a class="btn-play" data-cta="instructors" data-instructor-cta="instructors" href="https://play.google.com/store/apps/details?id=uk.co.drivingtestsimulator.passtrack" target="_blank" rel="noopener">
+              <img src="/assets/img/google-play-badge.png" width="646" height="250" alt="Get it on Google Play">
+            </a>
+          </div>
+          <p class="band-cta-note">Questions first? Email <a href="mailto:info@rds-hub-ltd.co.uk?subject=Instructor%20enquiry" data-instructor-cta="instructor-email">info@rds-hub-ltd.co.uk</a>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Coverage ================= -->
+  <section class="section section--cream" id="coverage" aria-labelledby="coverage-h">
+    <div class="wrap">
+      <div class="head reveal">
+        <h2 id="coverage-h">Where the routes are</h2>
+        <p>Eighteen routes at five test centres today, in the West Midlands and Greater London.</p>
+      </div>
+
+      <ul class="centres reveal">
+        <li class="centre">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+          <div><b>Wednesbury</b><span>West Midlands</span></div>
+          <span class="count">7 routes</span>
+        </li>
+        <li class="centre">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+          <div><b>Birmingham (Garretts Green)</b><span>West Midlands</span></div>
+          <span class="count">1 route</span>
+        </li>
+        <li class="centre">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+          <div><b>Birmingham (Kings Heath)</b><span>West Midlands</span></div>
+          <span class="count">1 route</span>
+        </li>
+        <li class="centre">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+          <div><b>Goodmayes</b><span>Greater London</span></div>
+          <span class="count">5 routes</span>
+        </li>
+        <li class="centre">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s7-5.6 7-11a7 7 0 1 0-14 0c0 5.4 7 11 7 11Z"/><circle cx="12" cy="10" r="2.6"/></svg>
+          <div><b>Hornchurch</b><span>Greater London</span></div>
+          <span class="count">4 routes</span>
+        </li>
+      </ul>
+
+      <div class="coverage-note reveal">
+        <p>Routes are desk-checked, not road-driven: they're built from community-reported route sheets and cross-referenced against map data, but nobody from us has driven them on the road. The app says so on every route. On the day, the examiner picks the route — treat these as rehearsal ground, and always drive the road in front of you rather than the screen.</p>
+        <p><a href="mailto:info@rds-hub-ltd.co.uk?subject=Test%20centre%20request">Want your test centre next? Tell us →</a></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= FAQ ================= -->
+  <section class="section" id="faq" aria-labelledby="faq-h">
+    <div class="wrap faq-layout">
+      <div class="head reveal">
+        <h2 id="faq-h">Questions, answered straight</h2>
+        <p>Everything learners ask us before they install it.</p>
+      </div>
+
+      <div class="faq reveal">
+        <details>
+          <summary>Is it free?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9.5 6 6 6-6"/></svg></summary>
+          <div class="answer">
+            <p>Yes — completely, and for everyone. No ads, no subscription, no in-app purchases and no paid tier waiting behind a feature. Learners and instructors get the same app.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Is this an official DVSA test?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9.5 6 6 6-6"/></svg></summary>
+          <div class="answer">
+            <p>No. Driving Test Simulator is a training aid made by RDS HUB LTD. It is not affiliated with or endorsed by the DVSA, the marking sheet is a DL25-style sheet rather than the DVSA's own, and a pass or fail in the app is a practice result — it has no bearing on your real test.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Do I need an instructor to use it?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9.5 6 6 6-6"/></svg></summary>
+          <div class="answer">
+            <p>No, but you do need someone legally able to supervise you. If you hold a provisional licence that means a supervising driver who is at least 21, has held a full licence for the same category for three years or more, and is insured for the car you're in.</p>
+            <p>An instructor can mark your mock test for you, and if one has linked with you, your reports and lesson history follow you.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Can I get it on iPhone?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9.5 6 6 6-6"/></svg></summary>
+          <div class="answer">
+            <p>Android only right now.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Does it need signal?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9.5 6 6 6-6"/></svg></summary>
+          <div class="answer">
+            <p>It works in the car without signal. A drive you record in a dead spot is stored on the device and syncs to your account once you're back on — so a marked mock test out in the sticks isn't lost.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>Are these the real test routes?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9.5 6 6 6-6"/></svg></summary>
+          <div class="answer">
+            <p>They're built from community-reported route sheets and desk-checked against map data — cross-referenced and driven in simulation, not driven on the road by us. The app labels every route that way.</p>
+            <p>On test day the examiner chooses the route, so treat these as realistic rehearsal ground rather than a script. Roads and layouts change too, so drive what's actually in front of you.</p>
+          </div>
+        </details>
+
+        <details>
+          <summary>How do I delete my account?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9.5 6 6 6-6"/></svg></summary>
+          <div class="answer">
+            <p>In the app, open your profile and tap Delete account. If you can't get into the app, use the <a href="/delete-account.html">account deletion page</a> and email us from the address you signed up with. Either way it's done within 30 days.</p>
+          </div>
+        </details>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= The honest bit ================= -->
+  <section class="section section--sky" id="honest" aria-labelledby="honest-h">
+    <div class="wrap">
+      <div class="honest reveal">
+        <span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 4.6 6v6c0 4.3 3.1 7.6 7.4 9 4.3-1.4 7.4-4.7 7.4-9V6Z"/><path d="m9.2 12.2 2 2 3.6-4"/></svg></span>
+        <div>
+          <h2 id="honest-h">The honest bit</h2>
+          <p>Driving Test Simulator is a training aid, not a driving test. Results in the app are practice records marked to a DL25-style sheet — they are not official driving test results, they don't predict or guarantee anything about your real test, and we are not affiliated with or endorsed by the DVSA.</p>
+          <p>Routes are desk-checked rather than road-driven, and the examiner picks the route on the day. The app never supervises you: you still need a legal supervising driver, a properly insured car, and your own eyes on the road ahead of anything on the screen.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= Final CTA ================= -->
+  <section class="section section--cream" aria-labelledby="final-h">
+    <div class="wrap">
+      <div class="final reveal">
+        <h2 id="final-h">Ready for your next drive?</h2>
+        <p>Free on Android. Takes a minute to set up.</p>
+        <div class="cta-row">
+          <a class="btn-play" data-cta="final" href="https://play.google.com/store/apps/details?id=uk.co.drivingtestsimulator.passtrack" target="_blank" rel="noopener">
+            <img src="/assets/img/google-play-badge.png" width="646" height="250" alt="Get it on Google Play">
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
   <div class="wrap">
-    <div class="cols">
-      <div>© RDS HUB LTD · Company no. 16285288 · England &amp; Wales</div>
-      <div><a href="/privacy.html">Privacy policy</a> · <a href="/terms.html">Terms of Service</a> · <a href="mailto:info@rds-hub-ltd.co.uk">info@rds-hub-ltd.co.uk</a></div>
+    <div class="footer-grid">
+      <div>
+        <span class="brand-lockup">
+          <span class="mark">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><line x1="12" y1="9.8" x2="12" y2="3"/><line x1="10.1" y1="13.1" x2="4.21" y2="16.5"/><line x1="13.9" y1="13.1" x2="19.79" y2="16.5"/><circle cx="12" cy="12" r="2.2" fill="currentColor" stroke="none"/></svg>
+          </span>
+          Driving Test<br>Simulator
+        </span>
+        <p class="foot-blurb">A training aid for learner drivers and instructors. Practice results are not official driving test results, and we are not affiliated with or endorsed by the DVSA.</p>
+      </div>
+
+      <div>
+        <h2>Legal</h2>
+        <ul>
+          <li><a href="/privacy.html">Privacy policy</a></li>
+          <li><a href="/terms.html">Terms of Service</a></li>
+          <li><a href="/delete-account.html">Delete your account</a></li>
+          <li><button type="button" class="linklike" data-consent-settings>Cookie settings</button></li>
+        </ul>
+      </div>
+
+      <div>
+        <h2>Contact</h2>
+        <ul>
+          <li><a href="mailto:info@rds-hub-ltd.co.uk">info@rds-hub-ltd.co.uk</a></li>
+          <li><a href="https://play.google.com/store/apps/details?id=uk.co.drivingtestsimulator.passtrack" data-cta="footer" target="_blank" rel="noopener">Get it on Google Play</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-legal">
+      <p>© RDS HUB LTD · Company no. 16285288 · 6 Exeter Place, Walsall, WS2 9UQ, England &amp; Wales</p>
+      <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
     </div>
   </div>
 </footer>
 
+<aside id="consent" aria-label="Cookie choices" aria-live="polite" hidden>
+  <h2>Cookies, only if you say so.</h2>
+  <p>We'd like to use Google Analytics and Google Ads cookies to see how people find this site and whether our adverts work. Nothing runs until you choose.</p>
+  <div class="consent-actions">
+    <button type="button" class="btn" id="consent-accept">Accept</button>
+    <button type="button" class="btn btn--ghost" id="consent-reject">Reject</button>
+    <a class="consent-more" href="/privacy.html#cookies">How we use cookies</a>
+  </div>
+</aside>
+
+<script src="/assets/site.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,1029 @@
+/* ==========================================================================
+   Driving Test Simulator — site.css
+   Bright, friendly learner brand. Light theme only.
+   Tokens below are the single source of truth for colour; nothing in the
+   markup should carry a hard-coded hex.
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* Brand */
+  --brand: #1D70B8;
+  --brand-700: #155A94;
+  --brand-100: #E3F0FB;
+  --sky: #4DA3FF;
+  --navy: #0B2E4F;
+  --sun: #FFC940;
+  --sun-100: #FFF3CC;
+  --coral: #FF6B4A;
+  --mint-700: #0E7A54;
+
+  /* Ink + surfaces */
+  --ink: #101828;
+  --ink-2: #475467;
+  --ink-3: #98A2B3;
+  --paper: #fff;
+  --cream: #FFF9F0;
+  --sky-50: #EEF6FF;
+  --line: #E4E7EC;
+
+  /* Secondary ink for navy surfaces — tinted from the hue, never grey */
+  --on-navy: #E8F1F9;
+  --on-navy-2: #AFCBE4;
+
+  /* Radii */
+  --r-card: 12px;
+  --r-chip: 999px;
+  --r-phone: 44px;
+  --r-phone-inner: 34px;
+
+  /* Depth — every shadow carries an offset and a soft blur */
+  --shadow-sm: 0 1px 2px rgba(16, 24, 40, .05), 0 2px 6px rgba(16, 24, 40, .04);
+  --shadow-md: 0 2px 4px rgba(16, 24, 40, .05), 0 10px 22px rgba(16, 24, 40, .07);
+  --shadow-lg: 0 6px 12px rgba(11, 46, 79, .08), 0 26px 54px rgba(11, 46, 79, .16);
+
+  /* Rhythm */
+  --pad: clamp(20px, 5vw, 32px);
+  --section-y: clamp(60px, 8vw, 104px);
+  --wrap: 1120px;
+
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
+}
+
+/* --------------------------------------------------------------------------
+   Reset
+   -------------------------------------------------------------------------- */
+
+*, *::before, *::after { box-sizing: border-box; }
+
+* { margin: 0; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  font-family: Manrope, ui-sans-serif, system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+  font-weight: 500;
+  font-size: 1.0625rem;
+  line-height: 1.65;
+  color: var(--ink);
+  background: var(--paper);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img, picture, svg { display: block; max-width: 100%; }
+img { height: auto; }
+
+button, input, select, textarea { font: inherit; color: inherit; }
+
+h1, h2, h3, h4 {
+  font-family: "Bricolage Grotesque", Manrope, ui-sans-serif, system-ui, Arial, sans-serif;
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  text-wrap: balance;
+  color: var(--navy);
+}
+
+p { text-wrap: pretty; }
+
+a { color: var(--brand-700); text-underline-offset: 3px; }
+a:hover { color: var(--brand); }
+
+:focus-visible {
+  outline: 3px solid var(--brand);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.on-navy :focus-visible,
+.footer :focus-visible { outline-color: var(--sun); }
+
+::selection { background: var(--sun-100); color: var(--ink); }
+
+/* --------------------------------------------------------------------------
+   Layout primitives
+   -------------------------------------------------------------------------- */
+
+.wrap {
+  width: 100%;
+  max-width: var(--wrap);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+
+.section { padding-block: var(--section-y); }
+
+.section--cream { background: var(--cream); }
+.section--sky { background: var(--sky-50); }
+.section--navy { background: var(--navy); color: var(--on-navy); }
+.section--navy h2, .section--navy h3 { color: #fff; }
+.section--navy p { color: var(--on-navy-2); }
+
+.skip {
+  position: absolute;
+  left: 12px;
+  top: -100px;
+  z-index: 100;
+  background: var(--navy);
+  color: #fff;
+  padding: 12px 20px;
+  border-radius: var(--r-card);
+  font-weight: 700;
+  text-decoration: none;
+  transition: top .18s var(--ease-out);
+}
+.skip:focus { top: 12px; color: #fff; }
+
+/* Section heading block — more space above a heading than below it */
+.head { max-width: 40ch; margin-bottom: clamp(32px, 4vw, 52px); }
+.head h2 { font-size: clamp(1.85rem, 3.6vw, 2.7rem); }
+.head p {
+  margin-top: 16px;
+  font-size: 1.1rem;
+  color: var(--ink-2);
+  max-width: 62ch;
+}
+.section--navy .head p { color: var(--on-navy-2); }
+
+/* --------------------------------------------------------------------------
+   Buttons
+   -------------------------------------------------------------------------- */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 13px 26px;
+  border: 0;
+  border-radius: var(--r-card);
+  background: var(--brand);
+  color: #fff;
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 1rem;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: background .18s var(--ease-out), transform .18s var(--ease-out),
+              box-shadow .18s var(--ease-out);
+}
+.btn:hover {
+  background: var(--brand-700);
+  color: #fff;
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-md);
+}
+.btn:active { transform: translateY(0); }
+
+.btn--ghost {
+  background: transparent;
+  color: var(--brand-700);
+  box-shadow: inset 0 0 0 2px var(--line);
+}
+.btn--ghost:hover {
+  background: var(--brand-100);
+  color: var(--brand-700);
+  box-shadow: inset 0 0 0 2px var(--brand);
+}
+
+.btn--sun { background: var(--sun); color: var(--navy); }
+.btn--sun:hover { background: #FFD466; color: var(--navy); }
+
+/* Official Google Play badge. Never recoloured, cropped or redrawn. */
+.btn-play {
+  display: inline-block;
+  border-radius: 10px;
+  line-height: 0;
+  transition: transform .18s var(--ease-out), filter .18s var(--ease-out);
+}
+.btn-play img { height: 58px; width: auto; }
+.btn-play:hover { transform: translateY(-2px); filter: brightness(1.06); }
+
+.cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+}
+
+/* --------------------------------------------------------------------------
+   Header
+   -------------------------------------------------------------------------- */
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  background: rgba(255, 255, 255, .88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--line);
+}
+
+.site-header .wrap {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  min-height: 72px;
+}
+
+.brand-lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  text-decoration: none;
+  color: var(--navy);
+  font-family: "Bricolage Grotesque", Manrope, sans-serif;
+  font-weight: 800;
+  font-size: 1.075rem;
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  flex-shrink: 0;
+}
+.brand-lockup .mark {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  border-radius: 10px;
+  background: var(--brand);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow-sm);
+}
+.brand-lockup .mark svg { width: 26px; height: 26px; }
+
+.site-nav { margin-left: auto; }
+.site-nav ul {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  list-style: none;
+  padding: 0;
+}
+.site-nav a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: var(--r-chip);
+  color: var(--ink-2);
+  font-weight: 700;
+  font-size: .95rem;
+  text-decoration: none;
+  transition: background .16s var(--ease-out), color .16s var(--ease-out);
+}
+.site-nav a:hover { background: var(--brand-100); color: var(--brand-700); }
+
+.header-cta { flex-shrink: 0; }
+.header-cta .btn-play img { height: 42px; }
+.header-cta-text { display: none; }
+
+@media (max-width: 899px) {
+  .site-nav { display: none; }
+  .header-cta .btn-play { display: none; }
+  .header-cta-text {
+    display: inline-flex;
+    margin-left: auto;
+    min-height: 44px;
+    padding: 10px 18px;
+    font-size: .95rem;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Hero
+   -------------------------------------------------------------------------- */
+
+.hero {
+  position: relative;
+  padding-block: clamp(44px, 7vw, 88px) clamp(56px, 8vw, 104px);
+  overflow: hidden;
+}
+
+/* Decorative sun blob — sits behind the phones, never behind body copy */
+.hero::before {
+  content: "";
+  position: absolute;
+  top: -14%;
+  right: -12%;
+  width: min(760px, 78vw);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 38% 38%, var(--sun) 0%, var(--sun-100) 46%, rgba(255, 249, 240, 0) 72%);
+  opacity: .5;
+  pointer-events: none;
+}
+
+.hero .wrap { position: relative; }
+
+.hero-grid {
+  display: grid;
+  gap: clamp(40px, 6vw, 72px);
+  align-items: center;
+}
+
+@media (min-width: 900px) {
+  .hero-grid { grid-template-columns: minmax(0, 1.02fr) minmax(0, .98fr); }
+}
+
+.hero-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 15px 7px 11px;
+  border-radius: var(--r-chip);
+  background: var(--brand-100);
+  color: var(--brand-700);
+  font-weight: 700;
+  font-size: .875rem;
+  letter-spacing: .005em;
+  margin-bottom: 22px;
+}
+.hero-eyebrow svg { width: 17px; height: 17px; flex: 0 0 17px; }
+
+.hero h1 {
+  font-size: clamp(2.6rem, 6.4vw, 4.35rem);
+  letter-spacing: -0.04em;
+}
+
+.hero-sub {
+  margin-top: 24px;
+  font-size: clamp(1.075rem, 1.6vw, 1.2rem);
+  color: var(--ink-2);
+  max-width: 54ch;
+}
+
+.hero .cta-row { margin-top: 34px; }
+
+.hero-trust {
+  display: flex;
+  align-items: flex-start;
+  gap: 9px;
+  margin-top: 22px;
+  font-size: .935rem;
+  font-weight: 700;
+  color: var(--ink-2);
+  max-width: 46ch;
+}
+.hero-trust svg {
+  width: 18px; height: 18px; flex: 0 0 18px;
+  margin-top: 3px;
+  color: var(--mint-700);
+}
+
+/* Hero phone pair */
+.hero-phones {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 400px;
+}
+.hero-phones .phone { width: min(280px, 62vw); }
+
+.hero-phones .phone--front {
+  position: relative;
+  z-index: 2;
+  animation: float-a 7s ease-in-out infinite;
+}
+.hero-phones .phone--back {
+  position: absolute;
+  z-index: 1;
+  top: 6%;
+  right: 2%;
+  width: min(246px, 54vw);   /* 88% of the front phone */
+  transform: rotate(-6deg);
+  animation: float-b 8.5s ease-in-out infinite;
+}
+
+@media (max-width: 599px) {
+  .hero-phones .phone { width: 60vw; }
+  .hero-phones .phone--back { width: 53vw; right: -2%; top: 4%; }
+}
+
+@keyframes float-a {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+@keyframes float-b {
+  0%, 100% { transform: rotate(-6deg) translateY(0); }
+  50%      { transform: rotate(-6deg) translateY(-9px); }
+}
+
+/* --------------------------------------------------------------------------
+   Phone component
+   -------------------------------------------------------------------------- */
+
+.phone {
+  position: relative;
+  aspect-ratio: 1080 / 2340;
+  padding: 7px;
+  border-radius: var(--r-phone);
+  background: linear-gradient(160deg, #2A3038 0%, #12161C 42%, #1E242C 100%);
+  box-shadow: var(--shadow-lg);
+}
+.phone > picture, .phone > img { display: block; height: 100%; }
+.phone img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+  border-radius: var(--r-phone-inner);
+  background: var(--paper);
+}
+
+/* --------------------------------------------------------------------------
+   Proof rail
+   -------------------------------------------------------------------------- */
+
+.proof {
+  border-block: 1px solid var(--line);
+  background: var(--cream);
+  padding-block: clamp(26px, 3.4vw, 38px);
+}
+.proof ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: clamp(18px, 2.6vw, 30px);
+  list-style: none;
+  padding: 0;
+}
+.proof li {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  font-weight: 700;
+  color: var(--navy);
+  font-size: 1.02rem;
+  line-height: 1.35;
+}
+.proof li svg {
+  width: 26px; height: 26px; flex: 0 0 26px;
+  color: var(--brand);
+}
+.proof li span { color: var(--ink-2); font-weight: 500; display: block; font-size: .9rem; }
+
+/* --------------------------------------------------------------------------
+   How it works
+   -------------------------------------------------------------------------- */
+
+.steps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(272px, 1fr));
+  gap: clamp(24px, 3.4vw, 38px);
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.step .phone { width: 100%; max-width: 218px; }
+.step-body { display: flex; gap: 14px; align-items: flex-start; }
+.step-n {
+  flex: 0 0 32px;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: var(--navy);
+  color: #fff;
+  display: grid;
+  place-items: center;
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-weight: 800;
+  font-size: .95rem;
+  margin-top: 2px;
+}
+.step h3 { font-size: 1.2rem; margin-bottom: 7px; }
+.step p { color: var(--ink-2); font-size: .985rem; }
+
+/* --------------------------------------------------------------------------
+   Feature cards
+   -------------------------------------------------------------------------- */
+
+.features {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(288px, 1fr));
+  gap: clamp(18px, 2.4vw, 26px);
+}
+
+.card {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  padding: clamp(24px, 2.6vw, 30px);
+  box-shadow: var(--shadow-sm);
+  transition: transform .22s var(--ease-out), box-shadow .22s var(--ease-out);
+}
+.card:hover { transform: translateY(-3px); box-shadow: var(--shadow-md); }
+
+.card .ico {
+  width: 46px; height: 46px;
+  border-radius: 11px;
+  background: var(--brand-100);
+  color: var(--brand-700);
+  display: grid;
+  place-items: center;
+  margin-bottom: 18px;
+}
+.card .ico svg { width: 25px; height: 25px; }
+.card h3 { font-size: 1.15rem; margin-bottom: 9px; }
+.card p { color: var(--ink-2); font-size: .985rem; }
+
+/* --------------------------------------------------------------------------
+   Gallery — scroll-snap phone row
+   -------------------------------------------------------------------------- */
+
+.gallery {
+  display: flex;
+  gap: clamp(18px, 2.4vw, 28px);
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 8px var(--pad) 30px;
+  margin-inline: calc(var(--pad) * -1);
+  scrollbar-width: thin;
+  scrollbar-color: var(--ink-3) transparent;
+}
+.gallery > figure {
+  flex: 0 0 auto;
+  width: min(258px, 68vw);
+  scroll-snap-align: center;
+  margin: 0;
+}
+.gallery figcaption {
+  margin-top: 16px;
+  font-size: .92rem;
+  color: var(--ink-2);
+  line-height: 1.5;
+}
+.gallery figcaption b {
+  display: block;
+  color: var(--navy);
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-weight: 700;
+  font-size: 1.02rem;
+  letter-spacing: -0.015em;
+  margin-bottom: 3px;
+}
+.gallery-hint {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 4px;
+  font-size: .9rem;
+  color: var(--ink-2);
+}
+.gallery-hint svg { width: 17px; height: 17px; color: var(--ink-3); }
+
+/* --------------------------------------------------------------------------
+   Instructor band (navy)
+   -------------------------------------------------------------------------- */
+
+.band-grid {
+  display: grid;
+  gap: clamp(36px, 5vw, 64px);
+  align-items: start;
+}
+@media (min-width: 900px) {
+  .band-grid { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
+}
+
+.ticks { list-style: none; padding: 0; display: grid; gap: 15px; }
+.ticks li {
+  display: flex;
+  gap: 13px;
+  align-items: flex-start;
+  font-size: 1.02rem;
+  color: var(--on-navy);
+  line-height: 1.55;
+}
+.ticks li svg {
+  width: 22px; height: 22px; flex: 0 0 22px;
+  margin-top: 4px;
+  color: var(--sun);
+}
+
+.band-cta {
+  background: rgba(255, 255, 255, .07);
+  border: 1px solid rgba(255, 255, 255, .16);
+  border-radius: var(--r-card);
+  padding: clamp(26px, 3vw, 34px);
+}
+.band-cta h3 { font-size: 1.3rem; margin-bottom: 12px; }
+.band-cta p { color: var(--on-navy-2); font-size: .99rem; }
+.band-cta .cta-row { margin-top: 24px; }
+.band-cta-note { margin-top: 22px; font-size: .95rem; }
+.band-cta a:not(.btn):not(.btn-play) { color: var(--sun); }
+
+/* --------------------------------------------------------------------------
+   Coverage
+   -------------------------------------------------------------------------- */
+
+.centres {
+  /* 190px min lets all five centres sit on one row at full width instead of
+     orphaning the last card onto a row of its own. */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: clamp(14px, 2vw, 20px);
+  list-style: none;
+  padding: 0;
+}
+.centre {
+  /* Two-row grid: the count sits under the name rather than competing with
+     it for width, so long centre names never squeeze to three lines. */
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: start;
+  /* Cards stretch to equal height; push the count to the bottom so the row
+     of pills reads as one set however many lines a centre name takes. */
+  align-content: space-between;
+  gap: 2px 13px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  padding: 18px 20px;
+  box-shadow: var(--shadow-sm);
+}
+.centre svg { width: 22px; height: 22px; flex: 0 0 22px; color: var(--brand); margin-top: 3px; }
+.centre b {
+  display: block;
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-weight: 700;
+  font-size: 1.04rem;
+  letter-spacing: -0.015em;
+  color: var(--navy);
+  line-height: 1.25;
+  text-wrap: balance;
+}
+.centre span { font-size: .9rem; color: var(--ink-2); }
+.centre .count {
+  grid-column: 2;
+  justify-self: start;
+  margin-top: 10px;
+  background: var(--sun-100);
+  color: var(--navy);
+  border-radius: var(--r-chip);
+  padding: 4px 12px;
+  font-size: .855rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.coverage-note {
+  margin-top: clamp(26px, 3vw, 34px);
+  display: grid;
+  gap: 14px;
+  max-width: 68ch;
+  font-size: .985rem;
+  color: var(--ink-2);
+}
+
+/* --------------------------------------------------------------------------
+   FAQ
+   -------------------------------------------------------------------------- */
+
+.faq { max-width: 76ch; }
+
+/* Wide screens: pair the heading with the questions instead of leaving the
+   right half of the section empty. The heading tracks the open question. */
+@media (min-width: 1000px) {
+  .faq-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 330px) minmax(0, 1fr);
+    gap: clamp(48px, 6vw, 88px);
+    align-items: start;
+  }
+  .faq-layout > .head {
+    margin-bottom: 0;
+    position: sticky;
+    top: 104px;
+  }
+  .faq { max-width: none; }
+}
+
+.faq details {
+  border-bottom: 1px solid var(--line);
+}
+.faq details:first-of-type { border-top: 1px solid var(--line); }
+
+.faq summary {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-height: 64px;
+  padding: 16px 4px;
+  cursor: pointer;
+  list-style: none;
+  font-family: "Bricolage Grotesque", Manrope, sans-serif;
+  font-weight: 700;
+  font-size: 1.09rem;
+  letter-spacing: -0.015em;
+  color: var(--navy);
+  transition: color .16s var(--ease-out);
+}
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary:hover { color: var(--brand-700); }
+.faq summary .chev {
+  margin-left: auto;
+  flex: 0 0 22px;
+  width: 22px; height: 22px;
+  color: var(--brand);
+  transition: transform .24s var(--ease-out);
+}
+.faq details[open] summary .chev { transform: rotate(180deg); }
+.faq .answer {
+  padding: 0 4px 24px;
+  max-width: 68ch;
+  color: var(--ink-2);
+  display: grid;
+  gap: 12px;
+}
+
+/* --------------------------------------------------------------------------
+   The honest bit
+   -------------------------------------------------------------------------- */
+
+.honest {
+  display: grid;
+  gap: clamp(20px, 3vw, 30px);
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: var(--r-card);
+  padding: clamp(28px, 4vw, 44px);
+  box-shadow: var(--shadow-sm);
+}
+@media (min-width: 820px) {
+  .honest { grid-template-columns: auto minmax(0, 1fr); align-items: start; }
+}
+.honest .ico {
+  width: 50px; height: 50px;
+  border-radius: 12px;
+  background: var(--sun-100);
+  color: var(--navy);
+  display: grid;
+  place-items: center;
+}
+.honest .ico svg { width: 27px; height: 27px; }
+.honest h2 { font-size: clamp(1.5rem, 2.4vw, 1.9rem); margin-bottom: 16px; }
+.honest p { color: var(--ink-2); max-width: 66ch; }
+.honest p + p { margin-top: 12px; }
+
+/* --------------------------------------------------------------------------
+   Final CTA — navy panel on cream
+   -------------------------------------------------------------------------- */
+
+.final {
+  position: relative;
+  overflow: hidden;
+  background: var(--navy);
+  border-radius: clamp(16px, 2.4vw, 24px);
+  padding: clamp(40px, 6vw, 76px) clamp(26px, 5vw, 64px);
+  text-align: center;
+}
+.final::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -58%;
+  width: min(640px, 120%);
+  aspect-ratio: 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 201, 64, .19) 0%, rgba(255, 201, 64, 0) 66%);
+  pointer-events: none;
+}
+.final > * { position: relative; }
+.final h2 { color: #fff; font-size: clamp(1.9rem, 4vw, 2.9rem); }
+.final p { margin-top: 16px; color: var(--on-navy-2); font-size: 1.09rem; }
+.final .cta-row { margin-top: 32px; justify-content: center; }
+
+/* --------------------------------------------------------------------------
+   Footer
+   -------------------------------------------------------------------------- */
+
+.footer {
+  background: var(--navy);
+  color: var(--on-navy-2);
+  /* The consent banner is position:fixed across the bottom of the viewport, so
+     at full scroll it lands on top of the footer — including the very "Cookie
+     settings" button that reopens it. While the banner is open site.js
+     publishes its height as --consent-space; reserving that much extra footer
+     lets the page scroll clear of it. Zero when the banner is closed. */
+  padding-block: clamp(46px, 6vw, 68px) calc(34px + var(--consent-space, 0px));
+  font-size: .95rem;
+}
+.footer-grid {
+  display: grid;
+  gap: clamp(28px, 4vw, 48px);
+  padding-bottom: 34px;
+  border-bottom: 1px solid rgba(255, 255, 255, .14);
+}
+@media (min-width: 760px) {
+  .footer-grid { grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr) minmax(0, 1fr); }
+}
+.footer h2 {
+  font-size: .82rem;
+  letter-spacing: .09em;
+  text-transform: uppercase;
+  color: #fff;
+  font-family: Manrope, sans-serif;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.footer ul { list-style: none; padding: 0; display: grid; gap: 3px; }
+.footer a {
+  color: var(--on-navy);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  min-height: 40px;
+  padding-block: 2px;
+}
+.footer a:hover { color: var(--sun); text-decoration: underline; }
+.footer .foot-blurb { color: var(--on-navy-2); max-width: 46ch; line-height: 1.6; }
+.footer .brand-lockup { color: #fff; margin-bottom: 18px; }
+.footer .brand-lockup .mark { background: rgba(255, 255, 255, .12); }
+.footer-legal {
+  padding-top: 26px;
+  display: grid;
+  gap: 8px;
+  font-size: .855rem;
+  color: var(--on-navy-2);
+  line-height: 1.6;
+}
+.footer button.linklike {
+  background: none;
+  border: 0;
+  padding: 2px 0;
+  min-height: 40px;
+  color: var(--on-navy);
+  font-weight: 500;
+  font-size: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.footer button.linklike:hover { color: var(--sun); text-decoration: underline; }
+
+/* --------------------------------------------------------------------------
+   Consent banner — non-modal, no focus trap
+   -------------------------------------------------------------------------- */
+
+#consent {
+  position: fixed;
+  z-index: 60;
+  left: 50%;
+  bottom: 18px;
+  transform: translateX(-50%);
+  width: min(560px, calc(100vw - 24px));
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: 0 8px 18px rgba(16, 24, 40, .10), 0 28px 60px rgba(11, 46, 79, .22);
+  padding: clamp(20px, 3vw, 26px);
+}
+#consent[hidden] { display: none; }
+#consent h2 {
+  font-size: 1.16rem;
+  margin-bottom: 9px;
+}
+#consent p { font-size: .95rem; color: var(--ink-2); }
+#consent .consent-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 11px;
+  align-items: center;
+  margin-top: 20px;
+}
+#consent .consent-actions .btn { flex: 1 1 140px; min-height: 48px; padding: 12px 20px; }
+#consent .consent-more {
+  flex: 1 1 100%;
+  font-size: .9rem;
+  margin-top: 2px;
+}
+
+/* --------------------------------------------------------------------------
+   Prose sub-pages
+   -------------------------------------------------------------------------- */
+
+.prose {
+  max-width: 720px;
+  margin-inline: auto;
+  padding-block: clamp(40px, 6vw, 72px) clamp(56px, 7vw, 88px);
+}
+.prose h1 {
+  font-size: clamp(2.1rem, 4.6vw, 3rem);
+  letter-spacing: -0.035em;
+}
+.prose > h2 {
+  font-size: clamp(1.25rem, 2.1vw, 1.5rem);
+  margin-top: 44px;
+  margin-bottom: 14px;
+  scroll-margin-top: 92px;
+}
+.prose p, .prose ul, .prose ol { margin-bottom: 16px; color: var(--ink-2); }
+.prose p strong, .prose li strong { color: var(--ink); }
+.prose ul, .prose ol { padding-left: 22px; display: grid; gap: 12px; }
+.prose li { line-height: 1.62; }
+.prose .updated {
+  display: inline-block;
+  margin-top: 14px;
+  margin-bottom: 8px;
+  background: var(--sky-50);
+  border-radius: var(--r-chip);
+  padding: 6px 15px;
+  font-size: .875rem;
+  font-weight: 700;
+  color: var(--brand-700);
+  font-style: normal;
+}
+
+.notice {
+  background: var(--sun-100);
+  border: 1px solid #F2DFA6;
+  border-radius: var(--r-card);
+  padding: 18px 22px;
+  margin: 26px 0;
+  font-size: .96rem;
+  color: var(--ink);
+}
+.notice strong { color: var(--navy); }
+
+.callout {
+  background: var(--sky-50);
+  border: 1px solid #D3E6FA;
+  border-radius: var(--r-card);
+  padding: clamp(20px, 3vw, 26px);
+  margin: 26px 0;
+}
+.callout p:last-child { margin-bottom: 0; }
+
+/* --------------------------------------------------------------------------
+   404
+   -------------------------------------------------------------------------- */
+
+.error-page {
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding-block: clamp(60px, 11vw, 130px);
+}
+.error-page h1 { font-size: clamp(2.2rem, 5.5vw, 3.4rem); }
+.error-page p {
+  margin-top: 18px;
+  color: var(--ink-2);
+  font-size: 1.09rem;
+  max-width: 48ch;
+}
+.error-page .cta-row { margin-top: 34px; justify-content: center; }
+.error-code {
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-weight: 800;
+  font-size: clamp(4.5rem, 15vw, 8rem);
+  line-height: .9;
+  letter-spacing: -0.055em;
+  color: var(--brand-100);
+  margin-bottom: 6px;
+}
+
+/* --------------------------------------------------------------------------
+   Reveal motion
+   -------------------------------------------------------------------------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .62s var(--ease-out), transform .62s var(--ease-out);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+.reveal.is-in { opacity: 1; transform: none; }
+
+/* No JS: content must never stay invisible */
+.no-js .reveal { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+  .reveal { opacity: 1; transform: none; }
+  .hero-phones .phone--front,
+  .hero-phones .phone--back { animation: none; }
+  .hero-phones .phone--back { transform: rotate(-6deg); }
+}
+
+/* Utilities */
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
