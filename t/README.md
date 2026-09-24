@@ -1,7 +1,7 @@
 # GB street tiles (`/t/`)
 
 Pre-built binary street-geometry tiles for the whole of Great Britain, used
-by the PassTrack Android Auto car map (`TileStreetCache.kt` /
+by the Driving Test Simulator Android Auto car map (`TileStreetCache.kt` /
 `SiteTileFetcher.kt` in the app repo) so the car screen never depends on a
 live query to the public Overpass API.
 
