@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-build_centre_pages.py — generate the /centres/ pages for
+build_centre_pages.py — generate the /test-centres/ pages for
 driving-test-simulator.co.uk from real app data.
 
 Source data: tools/centre_data.json, a one-time dump of kPilotCentres and
@@ -10,8 +10,8 @@ live link. Re-run the dump and refresh centre_data.json if the app's centre
 or route list changes).
 
 Produces:
-    centres/<centre-id>.html   one page per centre
-    centres/index.html         index grouped by area
+    test-centres/<centre-id>.html   one page per centre
+    test-centres/index.html         index grouped by area
     sitemap.xml                updated in place with the 22 new URLs
 
 Re-running this script is safe and idempotent — it only touches the
@@ -30,7 +30,7 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parent.parent
 DATA = REPO / "tools" / "centre_data.json"
-OUT_DIR = REPO / "centres"
+OUT_DIR = REPO / "test-centres"
 SITEMAP = REPO / "sitemap.xml"
 BASE_URL = "https://driving-test-simulator.co.uk"
 PLAY_URL = "https://play.google.com/store/apps/details?id=uk.co.drivingtestsimulator.passtrack"
@@ -117,7 +117,7 @@ document.documentElement.classList.remove('no-js');
         <li><a href="/#instructors">Instructors</a></li>
         <li><a href="/#how">How it works</a></li>
         <li><a href="/#faq">FAQ</a></li>
-        <li><a href="/centres/">Test centres</a></li>
+        <li><a href="/test-centres/">Test centres</a></li>
       </ul>
     </nav>
 
@@ -196,6 +196,7 @@ document.documentElement.classList.remove('no-js');
 """
 
 FOOTER_LINE = (
+    "Practice loops are provisional and not the routes examiners use. "
     "Practice results are not official driving test results. "
     "Not affiliated with, or endorsed by, the DVSA."
 )
@@ -207,13 +208,12 @@ def render_page(centre, all_centres, routes_by_id):
     n_routes = len(routes_by_id[cid])
     route_names = [r["name"] for r in routes_by_id[cid]]
 
-    title = f"{name} driving test centre – practice routes | Driving Test Simulator"
+    title = f"{name} Driving Test Centre — Practice Loops & Mock Test | Driving Test Simulator"
     description = (
-        f"Practise for your driving test at {name}: {n_routes} provisional "
-        f"practice loop{'s' if n_routes != 1 else ''} around the test centre, "
-        "sat-nav guidance and DL25-style marking. Free on Android."
+        f"Practise around {name} driving test centre with provisional practice "
+        "loops, a DL25-style mock test and turn-by-turn directions. Free on Android."
     )
-    canonical = f"{BASE_URL}/centres/{cid}.html"
+    canonical = f"{BASE_URL}/test-centres/{cid}.html"
 
     # nearest 3 centres by great-circle distance
     others = []
@@ -233,23 +233,23 @@ def render_page(centre, all_centres, routes_by_id):
         route_list_html = "<p>No practice loops are published for this centre yet — check back soon.</p>"
 
     nearest_html = "<ul>\n" + "\n".join(
-        f'        <li><a href="/centres/{c["id"]}.html">{html.escape(c["name"])}</a> — {d:.1f} miles</li>'
+        f'        <li><a href="/test-centres/{c["id"]}.html">{html.escape(c["name"])}</a> — {d:.1f} miles</li>'
         for d, c in nearest
     ) + "\n      </ul>"
 
-    body = f"""<h1>{html.escape(name)} driving test centre — practice routes</h1>
-<p>Getting ready for your practical test at {html.escape(name)}? Driving Test Simulator has {n_routes} provisional practice loop{'s' if n_routes != 1 else ''} built around this test centre, so you can rehearse the kind of roads, junctions and roundabouts you're likely to meet on the day.</p>
+    # Owner-approved copy (Growth Pack section 3, 24 Sep 2026).
+    body = f"""<h1>Practise for your test at {html.escape(name)}</h1>
+<p>Driving Test Simulator gives you provisional practice loops around {html.escape(name)} driving test centre, built from map data. Drive them with a supervisor, follow turn-by-turn directions, and log faults on a DL25-style sheet.</p>
 
-<h2>Practice loops at {html.escape(name)}</h2>
-<p>{n_routes} provisional practice loop{'s' if n_routes != 1 else ''} around {html.escape(name)} test centre, built from map data — not the examiner's own routes, and not yet driven and checked on the road:</p>
+<h2>What you can practise here</h2>
+<ul>
+  <li>Roundabouts, junctions and dual carriageways near the centre</li>
+  <li>Manoeuvres: parallel park, bay park, pull up on the right</li>
+  <li>Show me / Tell me questions</li>
+</ul>
+
+<h2>Practice loops at {html.escape(name)} ({n_routes})</h2>
       {route_list_html}
-
-<h2>How to practise</h2>
-<ol>
-  <li>Open the Driving Test Simulator app and pick {html.escape(name)} from the list of test centres.</li>
-  <li>Choose a practice loop, or start a DL25-style mock test.</li>
-  <li>Drive only with a supervising driver in the car who can override the app's directions at any point — these are provisional loops, not routes that have been driven and checked.</li>
-</ol>
 
 <h2>Nearest other centres</h2>
       {nearest_html}
@@ -276,7 +276,7 @@ def render_index(all_centres, routes_by_id):
         "Every test centre covered by Driving Test Simulator's provisional "
         "practice loops, grouped by area, with route counts. Free on Android."
     )
-    canonical = f"{BASE_URL}/centres/"
+    canonical = f"{BASE_URL}/test-centres/"
 
     by_area: dict[str, list] = {}
     for c in all_centres:
@@ -286,7 +286,7 @@ def render_index(all_centres, routes_by_id):
     for area in sorted(by_area):
         centres = sorted(by_area[area], key=lambda c: c["name"])
         items = "\n".join(
-            f'        <li><a href="/centres/{c["id"]}.html">{html.escape(c["name"])}</a> '
+            f'        <li><a href="/test-centres/{c["id"]}.html">{html.escape(c["name"])}</a> '
             f'— {len(routes_by_id[c["id"]])} route{"s" if len(routes_by_id[c["id"]]) != 1 else ""}</li>'
             for c in centres
         )
@@ -324,8 +324,8 @@ def update_sitemap(centre_ids):
         flags=re.S,
     )
 
-    urls = [("/centres/", "monthly", "0.6")] + [
-        (f"/centres/{cid}.html", "monthly", "0.5") for cid in centre_ids
+    urls = [("/test-centres/", "monthly", "0.6")] + [
+        (f"/test-centres/{cid}.html", "monthly", "0.5") for cid in centre_ids
     ]
     block_lines = ["  <!-- BEGIN centres (generated by tools/build_centre_pages.py) -->"]
     for path, changefreq, priority in urls:
