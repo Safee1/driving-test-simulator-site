@@ -7,9 +7,11 @@ live query to the public Overpass API.
 
 ## Format
 
-- One file per grid tile: `t/<latIdx>_<lngIdx>.bin`, where
-  `latIdx = floor(lat / 0.02)`, `lngIdx = floor(lng / 0.03)` (same grid
-  `TileStreetCache.kt` uses — 0.02° lat x 0.03° lng, ~2km cells).
+- One file per grid tile: `t/<latIdx>/<latIdx>_<lngIdx>.bin` (sharded one
+  level by `latIdx` — GB is ~46k tiles total, past the ~20k-files-per-dir
+  guidance for a flat layout), where `latIdx = floor(lat / 0.02)`,
+  `lngIdx = floor(lng / 0.03)` (same grid `TileStreetCache.kt` uses —
+  0.02° lat x 0.03° lng, ~2km cells).
 - File body is the CST1 binary format (`CarStreetsCodec.kt` in the app
   repo): magic `"CST1"`, uint32 LE way count, then per way: 1 byte class
   (0 major / 1 secondary / 2 minor), uint32 LE point count, then that many
